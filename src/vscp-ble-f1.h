@@ -88,6 +88,9 @@ vscp_ble_f1_rx_init(vscp_ble_f1_rx_t *rx, uint16_t company);
 
 /*!
   Feed one F1 AD structure (from a complete extended advertising report).
+  @param rx Receiver state.
+  @param ad One F1 AD structure (from AD Length).
+  @param len Its length.
   @param now_ms A millisecond clock (wraps are handled).
   @param ev, out, outcap On VSCP_BLE_OK the complete event; its data is
          copied to out (outcap >= T).

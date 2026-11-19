@@ -51,10 +51,12 @@ int
 vscp_ble_l0_decode(const uint8_t *ad, size_t len, uint16_t company, vscp_ble_l0_event_t *ev);
 
 /*!
-  The legacy derived GUID FF:FF:FF:FF:FF:FF:FF:F8:<6-octet BLE address>:<node id>.
+  The legacy derived GUID FF:FF:FF:FF:FF:FF:FF:F8 + 6-octet BLE address + node id.
   It changes with BLE private-address rotation and MUST NOT be merged with a
   stable E1/A2/G1 GUID without a trusted provisioning record.
+  @param guid Out: the GUID.
   @param addr BLE address, most significant octet first.
+  @param node_id Node id (big-endian in the GUID).
 */
 void
 vscp_ble_l0_guid(uint8_t guid[16], const uint8_t addr[6], uint16_t node_id);

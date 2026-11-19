@@ -84,6 +84,7 @@ vscp_ble_e1_encode(frame, sizeof(frame), company, seq, &ev, &len);
 ## Documentation
 
 - [Library guide](docs/vscp-ble-library.md) - API, persistence, crypto backends, porting
+- API reference: run `doxygen Doxyfile` and open `doxygen/html/index.html` (also built by CI as the `vscp-ble-api-docs` artifact)
 - [ESP32](docs/esp32.md) - ESP-IDF 6.1 / NimBLE node
 - [Zephyr and Nordic](docs/zephyr-nordic.md) - Zephyr module, nRF Connect SDK node
 - [Linux BlueZ](docs/linux-bluez.md) - Python tools and codec

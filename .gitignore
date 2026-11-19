@@ -36,3 +36,4 @@ key.json
 .vscode/
 .idea/
 *.swp
+doxygen/

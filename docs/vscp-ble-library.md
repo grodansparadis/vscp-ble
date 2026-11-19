@@ -208,6 +208,12 @@ vectors.
 - Anything else: compile the `src/*.c` files you need plus one crypto
   backend, with `src/` on the include path.
 
+## API reference
+
+The headers carry Doxygen comments. `doxygen Doxyfile` (repository root)
+writes the HTML reference to `doxygen/html/index.html`. Warnings fail the
+build, locally and in CI, so keep every parameter documented.
+
 ## Version
 
 `src/vscp-ble-version.h` holds the library version as year.month.patch

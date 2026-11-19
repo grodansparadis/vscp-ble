@@ -7,6 +7,7 @@ tagged, rename **Unreleased** to the version and date, and start a new
 
 ## Unreleased
 
+- Doxygen API documentation: `Doxyfile` (output in `doxygen/`, not committed); CI builds it, fails on warnings and uploads the HTML as an artifact
 - First version, implementing the draft *VSCP over Bluetooth Low Energy* transport (vscp-doc-spec PR #18)
 - Library (`src/`, C99, no dynamic allocation): E1, A2, F1, G1 and L0 codecs; advertising data parsing with the multiple-candidate (ambiguous) and truncation checks; persistent sequence/epoch counter with block reservation; A2 receiver in the spec's order (framing, key record and GUID match, tag before plaintext, replay, persisted replay state, fail closed); bounded F1 reassembly (two messages, 3 s absolute deadline, completion cache); G1 records, ATT fragmentation, control messages, HELLO negotiation and a transport independent server session
 - AES-128-CCM backends: OpenSSL, PSA Crypto API (ESP-IDF 6, Zephyr, nRF Connect SDK), Mbed TLS and a portable reference

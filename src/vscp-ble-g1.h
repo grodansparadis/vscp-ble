@@ -106,7 +106,11 @@ vscp_ble_g1_record_encode(uint8_t *out, size_t cap, uint32_t tid, const vscp_ble
 
 /*!
   Decode a complete G1 record. ev->data points into rec.
+  @param rec The record.
+  @param len Its length.
   @param max_data Negotiated max_event_data.
+  @param tid Out (optional): transaction ID.
+  @param ev Out: the event.
 */
 int
 vscp_ble_g1_record_decode(const uint8_t *rec, size_t len, uint16_t max_data, uint32_t *tid, vscp_ble_event_t *ev);
@@ -148,6 +152,11 @@ vscp_ble_g1_frag_rx_reset(vscp_ble_g1_frag_rx_t *rx);
 
 /*!
   Feed one fragment.
+  @param rx Reassembly state.
+  @param frag One fragment (an Event TX/RX characteristic value).
+  @param len Its length.
+  @param now_ms A millisecond clock.
+  @param reclen Out: record length when complete.
   @param tid Out: transaction ID of the fragment (also on error, if the
          header could be read; 0 otherwise).
   @param status Out: G1 status code for an error.

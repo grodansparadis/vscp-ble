@@ -91,8 +91,15 @@ typedef struct {
   match, epoch range, tag verification and decryption, replay check and
   persisted replay update. Not thread safe: serialize calls per receiver.
 
+  @param rx Receiver configuration (key lookup, replay persistence).
+  @param ad One complete A2 AD structure (from AD Length).
+  @param len Its length.
+  @param ev Out: the authenticated event.
   @param plain Buffer for the decrypted data (at least N octets, max 200).
                ev->data points into it on success.
+  @param plaincap Size of plain.
+  @param epoch Out (optional): key epoch of the frame.
+  @param sequence Out (optional): sequence of the frame.
   @param rec Out (optional): the key record that authenticated the frame,
              for the authorization decision.
   @return VSCP_BLE_OK or an error. Nothing is delivered on error and the

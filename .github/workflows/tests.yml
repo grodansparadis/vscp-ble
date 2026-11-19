@@ -109,3 +109,23 @@ jobs:
 
       - name: Build examples/nordic for ${{ matrix.board }}
         run: west build -p -b ${{ matrix.board }} -d build-nordic --sysbuild vscp-ble/examples/nordic
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen
+
+      - name: Build API documentation (warnings fail the build)
+        run: doxygen Doxyfile
+
+      - name: Upload HTML documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscp-ble-api-docs
+          path: doxygen/html
