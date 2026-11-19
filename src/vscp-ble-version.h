@@ -58,9 +58,9 @@
 
 #define VSCP_BLE_LIB_VERSION_YEAR  26
 #define VSCP_BLE_LIB_VERSION_MONTH 11
-#define VSCP_BLE_LIB_VERSION_PATCH 4
-#define VSCP_BLE_LIB_VERSION_STR   "26.11.4"
-#define VSCP_BLE_LIB_VERSION       0x1A0B0004UL
+#define VSCP_BLE_LIB_VERSION_PATCH 5
+#define VSCP_BLE_LIB_VERSION_STR   "26.11.5"
+#define VSCP_BLE_LIB_VERSION       0x1A0B0005UL
 
 // No casts so it also works in #if expressions
 #define VSCP_BLE_LIB_VERSION_CODE(year, month, patch) (((year) * 0x1000000UL) + ((month) * 0x10000UL) + (patch))
