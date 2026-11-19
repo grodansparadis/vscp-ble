@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install dependencies
         run: |
@@ -57,7 +57,7 @@ jobs:
         target: [esp32s3, esp32c3, esp32c6]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build examples/esp32 for ${{ matrix.target }} (ESP-IDF 6.1)
         uses: espressif/esp-idf-ci-action@v1
@@ -73,7 +73,7 @@ jobs:
       CMAKE_PREFIX_PATH: /opt/toolchains
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: vscp-ble
 
@@ -98,7 +98,7 @@ jobs:
         board: [nrf52840dk/nrf52840, nrf5340dk/nrf5340/cpuapp, nrf54l15dk/nrf54l15/cpuapp]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: vscp-ble
 
@@ -114,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install Doxygen
         run: |
@@ -125,7 +125,7 @@ jobs:
         run: doxygen Doxyfile
 
       - name: Upload HTML documentation
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: vscp-ble-api-docs
           path: doxygen/html
