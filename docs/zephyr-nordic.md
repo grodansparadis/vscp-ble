@@ -20,6 +20,11 @@ log) and bonding. The Nordic example also uses the DK buttons and LEDs.
 
 ## Zephyr
 
+The open-source Zephyr controller sends at most 191 octets of extended
+advertising data (more needs its experimental `BT_CTLR_ADV_DATA_CHAIN`), so
+with it E1 events carry at most 157 data octets and A2 events 135. The
+SoftDevice Controller in the Nordic example takes full-size frames.
+
 ```bash
 west init -m https://github.com/grodansparadis/vscp-ble vscp-ws
 cd vscp-ws && west update
