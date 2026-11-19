@@ -1,0 +1,7 @@
+{
+  "comment": "TEST KEY ONLY - generate real keys with a CSPRNG, e.g. python3 -c \"import secrets; print(secrets.token_hex(16))\"; provision them out of band; never publish them",
+  "key_id": 1,
+  "guid": "00:01:02:03:04:05:06:07:08:09:0A:0B:0C:0D:0E:0F",
+  "key": "000102030405060708090a0b0c0d0e0f",
+  "nonce_prefix": "a0a1a2a3a4"
+}

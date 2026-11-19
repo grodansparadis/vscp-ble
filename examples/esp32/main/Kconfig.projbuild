@@ -1,0 +1,46 @@
+menu "VSCP BLE node"
+
+    config VSCP_BLE_COMPANY_ID
+        hex "Bluetooth Company Identifier"
+        default 0xFFFF
+        help
+            Your Bluetooth SIG assigned Company Identifier. 0xFFFF is for
+            tests only and must never be used in products.
+
+    config VSCP_BLE_EVENT_PERIOD_MS
+        int "Measurement interval (ms)"
+        default 10000
+
+    config VSCP_BLE_SEND_E1
+        bool "Broadcast cleartext E1 events (public data)"
+        default y
+
+    config VSCP_BLE_SEND_A2
+        bool "Broadcast authenticated/encrypted A2 events"
+        default y
+        help
+            Needs a provisioned key: NVS namespace "vscp_ble", blob "a2_key"
+            (2 octets key id BE, 16 octets AES key, 5 octets nonce prefix).
+            Without a key no A2 events are sent.
+
+    config VSCP_BLE_A2_INSECURE_TEST_KEY
+        bool "Use the PUBLIC test key when no key is provisioned (INSECURE)"
+        default n
+        depends on VSCP_BLE_SEND_A2
+        help
+            Key id 1, key 00..0F, nonce prefix A0..A4, as in the test
+            vectors. Anyone can read and forge these events. Tests only.
+
+    config VSCP_BLE_G1
+        bool "G1 GATT server"
+        default y
+
+    config VSCP_BLE_G1_AUTHORIZE_BONDED
+        bool "Give event access to every authenticated bonded central"
+        default y
+        depends on VSCP_BLE_G1
+        help
+            Demo policy. Bonding is not authorization: a product should
+            keep an explicit list of authorized peers.
+
+endmenu

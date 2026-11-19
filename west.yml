@@ -1,0 +1,26 @@
+# West manifest: builds the Zephyr example against upstream Zephyr.
+#
+#   west init -m https://github.com/grodansparadis/vscp-ble vscp-ws
+#   cd vscp-ws && west update
+#   west build -b nrf52840dk/nrf52840 vscp-ble/examples/zephyr
+#
+# For the Nordic example use an nRF Connect SDK workspace instead and add
+# this repository as a module (see docs/zephyr-nordic.md).
+manifest:
+  remotes:
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+  projects:
+    - name: zephyr
+      remote: zephyrproject-rtos
+      revision: v4.2.0
+      import:
+        name-allowlist:
+          - cmsis
+          - cmsis_6
+          - hal_nordic
+          - mbedtls
+          - picolibc
+          - segger
+  self:
+    path: vscp-ble

@@ -1,0 +1,3 @@
+# VSCP BLE node for nRF Connect SDK
+rsource "../zephyr/Kconfig.node"
+source "Kconfig.zephyr"

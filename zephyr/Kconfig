@@ -1,0 +1,29 @@
+# vscp-ble Zephyr module
+
+config VSCP_BLE
+	bool "VSCP over Bluetooth LE library (E1, A2, F1, G1, L0)"
+	help
+	  Portable codecs and state machines for the draft VSCP BLE transport.
+
+if VSCP_BLE
+
+choice VSCP_BLE_CRYPTO
+	prompt "AES-128-CCM backend for A2"
+	default VSCP_BLE_CRYPTO_PSA
+
+config VSCP_BLE_CRYPTO_PSA
+	bool "PSA Crypto API"
+	help
+	  Zephyr: CONFIG_MBEDTLS=y, CONFIG_MBEDTLS_PSA_CRYPTO_C=y.
+	  nRF Connect SDK: CONFIG_NRF_SECURITY=y (hardware AES).
+	  Both also need CONFIG_PSA_WANT_ALG_CCM=y and
+	  CONFIG_PSA_WANT_KEY_TYPE_AES=y.
+
+config VSCP_BLE_CRYPTO_REFERENCE
+	bool "Portable reference implementation (tests only)"
+	help
+	  Table based AES without side channel hardening. Use PSA in products.
+
+endchoice
+
+endif # VSCP_BLE

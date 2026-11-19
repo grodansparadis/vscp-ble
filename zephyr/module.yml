@@ -1,0 +1,6 @@
+# vscp-ble as a Zephyr module. Add it to west.yml, or from an application:
+#   list(APPEND EXTRA_ZEPHYR_MODULES <path to vscp-ble>)
+name: vscp-ble
+build:
+  cmake: zephyr
+  kconfig: zephyr/Kconfig

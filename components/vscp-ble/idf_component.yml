@@ -1,0 +1,6 @@
+version: "0.1.0"
+description: VSCP over Bluetooth LE (E1, A2, F1, G1, L0) - portable C99 library
+url: https://github.com/grodansparadis/vscp-ble
+license: MIT
+dependencies:
+  idf: ">=5.0"

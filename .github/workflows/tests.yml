@@ -1,0 +1,111 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  library:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ clang libgtest-dev libssl-dev libmbedtls-dev python3-cryptography
+
+      - name: Vectors are up to date
+        run: python3 -B tools/gen_vectors.py --check
+
+      - name: Build (OpenSSL and reference AES-CCM)
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j
+
+      - name: Google Tests
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Google Tests with the Mbed TLS backend
+        run: |
+          cmake -S . -B build-mbedtls -DCMAKE_BUILD_TYPE=Release -DVSCP_BLE_CRYPTO=mbedtls
+          cmake --build build-mbedtls -j
+          ctest --test-dir build-mbedtls --output-on-failure
+
+      - name: Google Tests with address and undefined behavior sanitizers
+        run: |
+          cmake -S . -B build-asan -DCMAKE_BUILD_TYPE=Debug -DVSCP_BLE_SANITIZE=ON \
+            -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+          cmake --build build-asan -j
+          ctest --test-dir build-asan --output-on-failure
+
+      - name: Fuzz receive paths (60 s)
+        run: tests/fuzz/run.sh 60
+
+      - name: Python codec and G1 session tests
+        run: python3 -B -m unittest discover -s examples/linux-bluez/tests -v
+
+      - name: Version updater test
+        run: python3 -B tests/test_update_version.py
+
+  esp32:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [esp32s3, esp32c3, esp32c6]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build examples/esp32 for ${{ matrix.target }} (ESP-IDF 6.1)
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v6.1
+          target: ${{ matrix.target }}
+          path: examples/esp32
+
+  zephyr:
+    runs-on: ubuntu-latest
+    container: ghcr.io/zephyrproject-rtos/ci:v0.28.4
+    env:
+      CMAKE_PREFIX_PATH: /opt/toolchains
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: vscp-ble
+
+      - name: West workspace (Zephyr v4.2.0, see west.yml)
+        run: |
+          west init -l vscp-ble
+          west update --narrow -o=--depth=1
+
+      - name: Build examples/zephyr for nrf52840dk
+        run: west build -p -b nrf52840dk/nrf52840 -d build-zephyr vscp-ble/examples/zephyr
+
+  nordic:
+    runs-on: ubuntu-latest
+    container: ghcr.io/nrfconnect/sdk-nrf-toolchain:v3.1.0
+    defaults:
+      run:
+        # The toolchain image sets up its environment in a login shell
+        shell: bash --login -eo pipefail {0}
+    strategy:
+      fail-fast: false
+      matrix:
+        board: [nrf52840dk/nrf52840, nrf5340dk/nrf5340/cpuapp, nrf54l15dk/nrf54l15/cpuapp]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: vscp-ble
+
+      - name: nRF Connect SDK v3.1.0 workspace
+        run: |
+          west init -m https://github.com/nrfconnect/sdk-nrf --mr v3.1.0
+          west update --narrow -o=--depth=1
+
+      - name: Build examples/nordic for ${{ matrix.board }}
+        run: west build -p -b ${{ matrix.board }} -d build-nordic --sysbuild vscp-ble/examples/nordic

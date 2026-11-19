@@ -1,0 +1,5 @@
+# VSCP BLE reference node for ESP32 (ESP-IDF 6.1, NimBLE)
+cmake_minimum_required(VERSION 3.22)
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+idf_build_set_property(MINIMAL_BUILD ON)
+project(vscp-ble-esp32)

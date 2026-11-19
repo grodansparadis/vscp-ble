@@ -1,0 +1,13 @@
+sample:
+  name: VSCP BLE node
+  description: VSCP over Bluetooth LE (E1, A2, G1) reference node
+common:
+  tags: bluetooth vscp
+  harness: bluetooth
+tests:
+  vscp_ble.node:
+    platform_allow:
+      - nrf52840dk/nrf52840
+      - nrf52833dk/nrf52833
+    integration_platforms:
+      - nrf52840dk/nrf52840

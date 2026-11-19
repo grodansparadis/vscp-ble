@@ -1,0 +1,5 @@
+dependencies:
+  idf: ">=6.0"
+  # The vscp-ble library from this repository
+  vscp-ble:
+    path: ../../../components/vscp-ble

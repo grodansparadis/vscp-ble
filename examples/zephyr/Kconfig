@@ -1,0 +1,3 @@
+# VSCP BLE node for Zephyr
+rsource "Kconfig.node"
+source "Kconfig.zephyr"

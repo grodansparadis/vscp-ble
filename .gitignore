@@ -1,0 +1,38 @@
+# Build output
+build/
+build-*/
+*.o
+*.a
+*.so
+*.su
+
+# ESP-IDF
+sdkconfig
+sdkconfig.old
+managed_components/
+dependencies.lock
+
+# Zephyr / west workspaces
+.west/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Fuzzing
+crash-*
+leak-*
+timeout-*
+oom-*
+
+# Runtime state of the Linux tools (counters, replay state, keys)
+*.state
+*.replay
+*.tmp
+key.json
+
+# Editors
+.vscode/
+.idea/
+*.swp

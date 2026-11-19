@@ -1,0 +1,44 @@
+# VSCP BLE node options, shared by the Zephyr and Nordic examples
+
+menu "VSCP BLE node"
+
+config VSCP_NODE_COMPANY_ID
+	hex "Bluetooth Company Identifier"
+	default 0xFFFF
+	help
+	  Your Bluetooth SIG assigned identifier. 0xFFFF is for tests only.
+
+config VSCP_NODE_PERIOD_MS
+	int "Measurement interval (ms)"
+	default 10000
+
+config VSCP_NODE_E1
+	bool "Broadcast cleartext E1 events (public data)"
+	default y
+
+config VSCP_NODE_A2
+	bool "Broadcast authenticated/encrypted A2 events"
+	default y
+	help
+	  Needs a provisioned key in the setting vscp_ble/a2key: 2 octets key
+	  id (big-endian), 16 octets AES key, 5 octets nonce prefix.
+
+config VSCP_NODE_A2_INSECURE_TEST_KEY
+	bool "Use the PUBLIC test key when none is provisioned (INSECURE)"
+	depends on VSCP_NODE_A2
+	help
+	  Key id 1, key 00..0F, prefix A0..A4 (the test vectors). Tests only.
+
+config VSCP_NODE_G1
+	bool "G1 GATT server"
+	default y
+
+config VSCP_NODE_AUTHORIZE_BONDED
+	bool "Give event access to every authenticated bonded central (demo)"
+	default y
+	depends on VSCP_NODE_G1
+	help
+	  Bonding is not authorization: products keep an explicit list.
+
+endmenu
+
