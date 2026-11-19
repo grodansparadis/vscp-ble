@@ -12,6 +12,10 @@ advertising (`bluetoothctl show` lists `SupportedSecondaryChannels`).
 sudo apt install bluez python3-dbus python3-gi python3-cryptography
 ```
 
+For a graphical tool use the Bluetooth LE session window of
+[VSCP Works](https://grodansparadis.github.io/vscp-works-qt/#/connection_ble),
+which uses the C library.
+
 ## Programs
 
 ### vscp-ble-advertise.py — send E1 or A2

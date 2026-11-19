@@ -81,6 +81,13 @@ vscp_ble_e1_encode(frame, sizeof(frame), company, seq, &ev, &len);
 // frame is one complete Manufacturer Specific Data AD structure
 ```
 
+## VSCP Works
+
+[VSCP Works](https://github.com/grodansparadis/vscp-works-qt) has a
+Bluetooth LE session window built on this library: it shows E1, A2 and F1
+(and L0) events with their trust level and talks to nodes over G1. See its
+[Bluetooth LE documentation](https://grodansparadis.github.io/vscp-works-qt/#/connection_ble).
+
 ## Documentation
 
 - [Library guide](docs/vscp-ble-library.md) - API, persistence, crypto backends, porting
